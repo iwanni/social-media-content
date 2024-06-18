@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      margin: 30px;
+      background-color: #f4df4f;
+      font-family: system-ui, Roboto, Arial, sans-serif;
+      font-size: 1.4em;
+      line-height: 1.6;
+      color: #242424;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    main {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5em;
+    }
+
+    p {
+      word-break: break-all;
+      margin: 0.5em 0;
+    }
+
+    #input-value {
+      color: #ba0e51;
+    }
+
+    #debounce-value {
+      color: #0b9713;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.5rem 0;
+      background-color: #eaeaea;
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      margin: 0.25rem 0;
+      color: #221133;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+  <title></title>
+</head>
+<body>
+  <label for="name">Input:</label><br>
+  <input type="text" id="name">
+  <p>onInput: <span id="input-value"></span></p>
+  <p>debouncedInput: <span id="debounce-value"></span>
+
+  <script>
+    let debounceTimer = null
+    let input = document.getElementById('name')
+    let inputValue = document.getElementById('input-value')
+    let debounceValue = document.getElementById('debounce-value')
+
+    const updateInputValue = () => {
+      inputValue.innerHTML = input.value
+    }
+
+    const updateDebounceValue = () => {
+      debounceValue.innerHTML = input.value
+    }
+
+    const debounce = (callback, time) => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(callback, time)
+    }
+
+    input.addEventListener('input', () => {
+        updateInputValue()
+        debounce(updateDebounceValue, 500)
+      })
+    </script>
+</body>
+</html>
